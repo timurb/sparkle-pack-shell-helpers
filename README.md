@@ -33,9 +33,9 @@ user_data base64!( join!(
   *registry!(:shell_var, name: 'CFN_RESOURCE', value: "DemoEc2Instance"),
   *registry!(:shell_var, name: 'CFN_REGION', value: region!),
 
-  "echo Hey!\n"
+  "echo Hey!\n",
 
-  registry!(:shell_helper, part: 'cfn_init'),
+  registry!(:shell_helper, part: 'cfn_init')
 ))
 ```
 
