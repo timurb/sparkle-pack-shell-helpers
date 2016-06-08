@@ -86,6 +86,32 @@ echo Hey!
 
 *Note:* Make sure you have `cfn-init` installed on instance.
 
+## Available registries
+
+### shell_var
+
+Produces shell-style variable assignment with trailing newline:
+```bash
+FOO="BAR"
+```
+
+Requires 2 paramers: "name" and "value".
+
+The registry must be called from within `join!()` block and prepended by asterisk `*`:
+```ruby
+# produces bash snippet as in the above example
+user_data base64!( join!( *registry!(:shell_var, name: 'FOO', value: 'BAR' ))
+```
+
+The registry returns array of values so calling that differently will produce incorrect results.
+
+
+### shell_helper
+
+* Params: `part: :shebang` -- produces shebang `#!/bin/sh -ex`
+* Params: `part: :cfn_init` -- produces line to invoke `cfn_init` with params "stack", "resource" and "region" accordingly set by `shell_var` helper
+
+
 ## Contributions
 
 Pull requests and bug reports are welcome.
