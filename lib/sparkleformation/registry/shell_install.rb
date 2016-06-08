@@ -7,10 +7,10 @@ SfnRegistry.register(:shell_install) do |args|
     raise!("Param :source is required for registry \"shell_install\".")
   end
 
-  case args[:part]
-  when :cfn_init, 'install_cfn'
-    case args[:os]
-    when :redhat, :centos, 'redhat', 'centos'
+  case args[:part].to_s
+  when 'cfn_init'
+    case args[:os].to_s
+    when 'redhat', 'centos'
       <<-EOF
       yum install -y epel-release
       yum install -y #{args[:source]}
@@ -24,12 +24,12 @@ SfnRegistry.register(:shell_install) do |args|
       raise!("Unknown os #{args[:os].inspect} passed to registry shell_helper")
     end
 
-  when :codedeploy
+  when 'codedeploy'
     if args[:ruby].nil?
       raise!("Param :ruby is required for part :codedeploy of registry \"shell_install\".")
     end
-    case args[:os]
-    when :redhat, :centos, 'redhat', 'centos'
+    case args[:os].to_s
+    when 'redhat', 'centos'
       <<-EOF
       # AWS CodeDeploy requires Ruby 2.0+ available as /usr/bin/ruby2.0
       ln -s #{args[:ruby]} /usr/bin/ruby2.0 ||:

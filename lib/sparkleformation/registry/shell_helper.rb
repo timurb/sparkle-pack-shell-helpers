@@ -1,6 +1,6 @@
 SfnRegistry.register(:shell_helper) do |args|
-  case args[:part]
-  when :shebang, 'shebang'
+  case args[:part].to_s
+  when 'shebang'
     "#!/bin/sh -ex\n\n"
 
   ## Put the following at the top of your userdata after shebang
@@ -9,7 +9,7 @@ SfnRegistry.register(:shell_helper) do |args|
   # 'CFN_REGION="',     region!,              "\"\n",
   #
   # Make sure you have cfn-init installed
-  when :cfn_init, 'cfn_init'
+  when 'cfn_init'
     <<-EOF
     /opt/aws/bin/cfn-init --verbose \\
                           --stack "${CFN_STACK}" \\
