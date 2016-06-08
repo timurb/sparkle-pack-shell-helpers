@@ -35,7 +35,7 @@ user_data base64!( join!(
 
   "echo Hey!\n"
 
-  registry!(:shell_helper, part: :cfn_init),
+  registry!(:shell_helper, part: 'cfn_init'),
 ))
 ```
 
@@ -89,6 +89,8 @@ echo Hey!
 
 ## Available registries
 
+All the registries are intended to use as elements of `join!()` call.
+
 ### shell_var
 
 Produces shell-style variable assignment with trailing newline:
@@ -109,9 +111,52 @@ The registry returns array of values so calling that differently will produce in
 
 ### shell_helper
 
-* Params: `part: :shebang` -- produces shebang `#!/bin/sh -ex`
-* Params: `part: :cfn_init` -- produces line to invoke `cfn_init` with params "stack", "resource" and "region" accordingly set by `shell_var` helper
+This registry consists of several parts passed as registry params.
 
+Example: `registry(:shell_helper, part: 'shebang')`
+
+Each part produces shell snippet accordingly.
+
+#### part: 'shebang'
+Produces shebang `#!/bin/sh -ex`
+
+
+#### part: 'cfn_init'
+Produces snippet to invoke `cfn_init` with params "stack", "resource" and "region" accordingly set by `shell_var` helper
+
+
+### shell_install
+
+This registry is used for installation of various AWS related stuff.
+
+*Note:* Refs and Fns don't work inside this function calls!
+
+#### part: 'cfn_init'
+Produces snippet to install cfn-init to the target node.
+It requires a few parameters:
+* `os: 'centos'` -- OS you run. Only `centos` and `redhat` are supported at the moment.
+* `source: 'aws-cfn-bootstrap'` -- this string will be passed to the package manager associated with OS. For yum it can be HTTP url.
+
+#### part: 'codedeploy'
+Produces snippet to install codedeploy agent to the target node.
+It requires a few parameters:
+* `os: 'centos'` -- OS you run. Only `centos` and `redhat` are supported at the moment.
+* `source: 'aws-cfn-bootstrap'` -- this string will be passed to the package manager associated with OS. For yum it can be HTTP url.
+* `ruby: '/opt/ruby/bin/ruby'` -- link this ruby to `/usr/bin/ruby2.0` as required by codedeploy agent. No ruby installation is done -- you need to have it already installed.
+
+Example:
+```ruby
+registry!(:shell_install,
+          part: 'cfn_init',
+          os: 'centos',
+          source: 'https://s3-us-west-1.amazonaws.com/xxx-rpm/aws-cfn-bootstrap-1.4-8.3.el7.centos.noarch.rpm'),
+registry!(:shell_install,
+          part: 'codedeploy',
+          os: 'centos',
+          ruby: '/opt/ruby-2.2.1/bin/ruby',
+          source: 'https://s3-us-west-1.amazonaws.com/aws-codedeploy-us-west-1/latest/codedeploy-agent.noarch.rpm'),
+registry!(:shell_helper, part: 'cfn_init')
+```
 
 ## Contributions
 
