@@ -61,6 +61,7 @@ This produces the following UserData:
           "Ref": "AWS::Region"
         },
         "\"\n",
+        "echo Hey!\n",
         "/opt/aws/bin/cfn-init --verbose \\                         --stack \"${CFN_STACK}\" \\                         --resource \"${CFN_RESOURCE}\" \\                         --region \"${CFN_REGION}\"\n"
       ]
     ]
