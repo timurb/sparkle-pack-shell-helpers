@@ -1,6 +1,7 @@
 # sparkle-pack-shell-helpers
 
-This is SparklePack to be used with SparkleFormation.
+This is SparklePack to ease shell scripting in UserData.
+It is in experimental state, use at your own risk.
 
 Shell helpers to be used in UserData templates for easier generation of shell scripts.
 
