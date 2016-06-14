@@ -1,6 +1,9 @@
 Changelog for sparkle-pack-shell-helpers
 ========================================
 
+0.3.0 (development)
+-----
+
 0.2.0
 -----
 - Added new helper :shell_install

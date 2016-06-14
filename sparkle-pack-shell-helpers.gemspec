@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name = 'sparkle-pack-shell-helpers'
-  s.version = '0.2.0'
+  s.version = '0.3.0'
   s.licenses = ['MIT']
   s.summary = 'SparklePack with various shell helpers to be used in UserData'
   s.description = 'Shell helpers to be used in UserData templates for easier generation of shell scripts'
