@@ -119,8 +119,9 @@ Example: `registry(:shell_helper, part: 'shebang')`
 Each part produces shell snippet accordingly.
 
 #### part: 'shebang'
-Produces shebang `#!/bin/sh -ex`
+Produces shebang `#!/bin/sh -x`
 
+Set parameter `:catch_errors` to true to produce `#!/bin/sh -ex` instead.
 
 #### part: 'cfn_init'
 Produces snippet to invoke `cfn_init` with params "stack", "resource" and "region" accordingly set by `shell_var` helper

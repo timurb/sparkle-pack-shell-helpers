@@ -1,7 +1,11 @@
 SfnRegistry.register(:shell_helper) do |args|
   case args[:part].to_s
   when 'shebang'
-    "#!/bin/sh -ex\n\n"
+    if args[:catch_errors]
+      "#!/bin/sh -ex\n\n"
+    else
+      "#!/bin/sh -x\n\n"
+    end
 
   ## Put the following at the top of your userdata after shebang
   # 'CFN_STACK="',      stack_name!,          "\"\n",

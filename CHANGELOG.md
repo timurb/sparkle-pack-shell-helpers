@@ -4,6 +4,7 @@ Changelog for sparkle-pack-shell-helpers
 0.3.0 (development)
 -----
 - Added helper :cfn_signal
+- Catch errors in shebang only when :catch_errors is trueish
 
 0.2.0
 -----
