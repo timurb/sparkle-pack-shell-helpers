@@ -3,6 +3,7 @@ Changelog for sparkle-pack-shell-helpers
 
 0.3.0 (development)
 -----
+- Added helper :cfn_signal
 
 0.2.0
 -----

@@ -14,7 +14,17 @@ SfnRegistry.register(:shell_helper) do |args|
     /opt/aws/bin/cfn-init --verbose \\
                           --stack "${CFN_STACK}" \\
                           --resource "${CFN_RESOURCE}" \\
-                          --region "${CFN_REGION}"\n
+                          --region "${CFN_REGION}"
+
+    EOF
+
+  when 'cfn_signal'
+    <<-EOF
+    /opt/aws/bin/cfn-signal --exit-code $? \\
+                            --stack "${CFN_STACK}" \\
+                            --resource "${CFN_RESOURCE}" \\
+                            --region "${CFN_REGION}"
+
     EOF
   else
     raise!("Unknown part #{args[:part].inspect} passed to registry shell_helper")
