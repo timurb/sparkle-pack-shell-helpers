@@ -1,7 +1,12 @@
 Changelog for sparkle-pack-shell-helpers
 ========================================
 
-0.3.0 (development)
+0.4.0
+-----
+- Support bash in addition to sh in shebang
+- Added parts "add_user" and "no_requiretty"
+
+0.3.0
 -----
 - Added helper :cfn_signal
 - Catch errors in shebang only when :catch_errors is trueish
