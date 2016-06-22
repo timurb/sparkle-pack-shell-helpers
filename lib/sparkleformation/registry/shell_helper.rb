@@ -1,10 +1,19 @@
 SfnRegistry.register(:shell_helper) do |args|
   case args[:part].to_s
   when 'shebang'
-    if args[:catch_errors]
-      "#!/bin/sh -ex\n\n"
+    case args[:shell].to_s
+    when 'sh'
+      shell = 'sh'
+    when 'bash'
+      shell = 'bash'
     else
-      "#!/bin/sh -x\n\n"
+      shell = 'bash'
+    end
+
+    if args[:catch_errors]
+      "#!/bin/#{shell} -ex\n\n"
+    else
+      "#!/bin/#{shell} -x\n\n"
     end
 
   ## Put the following at the top of your userdata after shebang
