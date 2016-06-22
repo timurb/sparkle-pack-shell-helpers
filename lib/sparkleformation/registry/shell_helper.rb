@@ -39,6 +39,25 @@ SfnRegistry.register(:shell_helper) do |args|
                             --region "${CFN_REGION}"
 
     EOF
+
+  when 'add_user'
+    if !args[:user]
+      raise!("Parameter :user is required. You've passed: #{args.inspect}")
+    end
+
+    lines = ["useradd -m #{args[:user]}"]
+    if args[:sudo]
+      if args[:nopasswd]
+        lines << "echo '#{args[:user]} ALL=(ALL) NOPASSWD:ALL' > /etc/sudoers.d/90-#{args[:user]}"
+      else
+        lines << "echo '#{args[:user]} ALL=(ALL) ALL' > /etc/sudoers.d/90-#{args[:user]}"
+      end
+    end
+    lines.join("\n") + "\n\n"
+
+  when 'no_requiretty'
+    "echo 'Defaults !requiretty' > /etc/sudoers.d/99-requiretty\n\n"
+
   else
     raise!("Unknown part #{args[:part].inspect} passed to registry shell_helper")
   end
